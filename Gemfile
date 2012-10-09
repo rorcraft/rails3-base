@@ -34,6 +34,7 @@ group :development do
   gem 'slim-rails'
   gem 'foreman'
   gem 'bullet'
+  gem 'knife-solo'
 end
 
 group :development, :test do
