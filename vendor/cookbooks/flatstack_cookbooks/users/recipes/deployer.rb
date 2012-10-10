@@ -1,3 +1,5 @@
+# TODO: add github key to know hosts
+
 if node.users.deployer.ssh_keys.empty?
   Chef::Log.fatal <<-ERROR
 

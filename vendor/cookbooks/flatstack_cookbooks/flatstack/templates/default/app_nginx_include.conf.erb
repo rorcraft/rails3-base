@@ -1,48 +1,38 @@
+##
+# Nginx config
+# Managed by Chef - Local Changes will be Nuked from Orbit (just to be sure)
+##
+
 server_name_in_redirect off;
 
-root <%= @application_root %>/current/public;
+root <%= @application_current_path %>/public;
 
-access_log  <%= @application_root %>/shared/log/access.log main;
-error_log   <%= @application_root %>/shared/log/error.log;
+access_log <%= @application_shared_path %>/log/access.log main;
+error_log <%= @application_shared_path %>/log/error.log;
 
 include /etc/nginx/helpers/expires.conf;
 include /etc/nginx/helpers/maintenance.conf;
 include /etc/nginx/helpers/invalid_requests.conf;
 include /etc/nginx/helpers/headers.conf;
 
-location /nginx_status {
-  stub_status on;
-  access_log off;
-  allow 127.0.0.1/32;
-  deny all;
-}
+try_files $uri/index.html $uri.html $uri @app;
 
-location / {
-
-  # use for cloudfront asset cache busting
-  # rewrite  ^/rev_(.+?)/(.*)$ /$2 last;
-
+location @app {
   proxy_buffer_size 16k;
   proxy_buffers 8 16k;
   proxy_busy_buffers_size 32k;
+  proxy_redirect off;
 
-  if (-f $request_filename) {
-     break;
-   }
+  proxy_pass http://<%= @application_full_name %>;
+}
 
-   if (!-f $request_filename) {
-     proxy_pass http://<%= @application_full_name %>;
-     break;
-   }
- }
-
-error_page  500 502 503 504 /500.html;
-error_page  404 /404.html;
+error_page 500 502 503 504 /500.html;
+error_page 404 /404.html;
 
 location = /500.html {
-  root  <%= @application_root %>/current/public;
+  root <%= @application_current_path %>/public;
 }
 
 location = /400.html {
-  root  <%= @application_root %>/current/public;
+  root <%= @application_current_path %>/public;
 }
