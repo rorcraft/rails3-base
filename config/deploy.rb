@@ -16,5 +16,5 @@ default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 
 set :default_environment, {
-  'PATH' => "/home/#{user}/.rbenv/shims:/home/#{user}/.rbenv/bin:$PATH"
+  'PATH' => '/opt/rbenv/shims:/opt/rbenv/bin:$PATH'
 }
