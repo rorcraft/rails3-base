@@ -1,5 +1,7 @@
 application_name = node.rails.application.name
 
+directory node.rails.application.root_prefix
+
 if application_name
   application_environment = node.rails.application.environment
   application_domain = node.rails.application.domain
@@ -22,7 +24,7 @@ if application_name
     group node.users.deployer.user
   end
 
-  %W(shared shared/sockets shared/log shared/pids shared/config).each do |dir|
+  %W(releases shared shared/sockets shared/log shared/pids shared/config).each do |dir|
     directory "#{application_root}/#{dir}" do
       recursive true
       owner node.users.deployer.user
