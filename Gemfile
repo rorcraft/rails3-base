@@ -35,6 +35,7 @@ group :development do
   gem 'foreman'
   gem 'bullet'
   gem 'knife-solo'
+  gem 'knife-ec2'
   gem 'capistrano'
 end
 
