@@ -101,6 +101,22 @@ if application_name
     variables template_variables
   end
 
+  connection_info = { :host => 'localhost', :username => 'postgres' }
+
+  database_name = node.postgresql.database.name || application_name.gsub(/-/, '_')
+  postgresql_database database_name do
+    action :create
+    connection connection_info
+  end
+
+  database_user = node.postgresql.database.user || database_name
+  postgresql_database_user database_user do
+    action :create
+    database_name database_name
+    password node.postgresql.database.password
+    connection connection_info
+  end
+
 else
   Chef::Log.info 'Recipe flatstack::rails_application skipped'
   Chef::Log.info <<-INFO
