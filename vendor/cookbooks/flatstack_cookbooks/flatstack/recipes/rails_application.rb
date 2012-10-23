@@ -109,6 +109,9 @@ if application_name
     connection connection_info
   end
 
+  ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+  node.set_unless[:postgresql][:database][:password] = secure_password
+
   database_user = node.postgresql.database.user || database_name
   postgresql_database_user database_user do
     action :create
@@ -124,4 +127,13 @@ else
     In case you would like to setup rails application
 
   INFO
+end
+
+
+file "postgresql_passwords" do
+  action :create_if_missing
+  path "/root/.postgresql_passwords"
+  content "postgres:#{node.postgresql.password.postgres}\n#{database_user}:#{node.postgresql.database.password}\n"
+  owner "root"
+  mode "0600"
 end
