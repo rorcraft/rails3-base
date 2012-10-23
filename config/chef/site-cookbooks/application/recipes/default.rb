@@ -1,11 +1,23 @@
 ### The following replaces omnibus chef by system-installed one
 
-dpkg_package "chef" do
-  action :remove
+package_chef = dpkg_package "chef" do
+  action :nothing
+end
+package_chef.run_action(:remove)
+
+package_rubygems = package "rubygems" do
+  action :nothing
 end
 
-package "rubygems"
-gem_package "chef"
+package_rubygems.run_action(:install)
+
+gem_package_chef = gem_package "chef" do
+  action :nothing
+end
+
+gem_package_chef.run_action(:install)
+
+Gem.clear_paths
 
 ### Until here
 # The above is not very well tested yet
