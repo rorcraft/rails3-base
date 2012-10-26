@@ -12,3 +12,5 @@ end
 package 'nano' do
   action :remove
 end
+
+directory "opt"  # needed for ruby_build recipe
