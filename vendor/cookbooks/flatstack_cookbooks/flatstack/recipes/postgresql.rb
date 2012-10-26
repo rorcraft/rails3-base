@@ -17,6 +17,7 @@ node.set_unless.postgresql.database.password = passwords[database_user] || secur
 
 include_recipe 'postgresql::client'
 include_recipe 'postgresql::server'
+include_recipe 'database::postgresql'
 
 
 postgresql_database database_name do
