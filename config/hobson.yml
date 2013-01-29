@@ -9,4 +9,5 @@
 #   :directory: BUCKET_NAME_HERE
 :storage:
   :provider   => 'Local',
-  :local_root => '~/hobson_workspace/log'
+  :local_root => '~/hobson_workspace/log',
+  :directory  => '~/hobson_workspace/log'
