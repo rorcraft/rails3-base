@@ -8,6 +8,6 @@
 #   :aws_access_key_id: INTENTIONALLY_LEFT_BLANK
 #   :directory: BUCKET_NAME_HERE
 :storage:
-  :provider   => 'Local',
-  :local_root => '~/hobson_workspace/log',
-  :directory  => '~/hobson_workspace/log'
+  :provider:   'Local'
+  :local_root: '~/hobson_workspace'
+  :directory:  '/log'
